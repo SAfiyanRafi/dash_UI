@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model/data
+trained_parameters/
+*.keras
+*.h5
+*.pb
+*.ckpt
+
+# Large datasets
+*.bin
+*.npy
+*.npz
+
+# TensorFlow checkpoints
+checkpoint
+events.out.tfevents*
+
+# Environment variables
+.env
