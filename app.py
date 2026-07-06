@@ -432,7 +432,7 @@ app.layout = dbc.Container(
                 dbc.Col(
                     glass_card(
                         [
-                            html.H5("🔍 Interactive Search", style={"color": COLORS["text_primary"], "marginBottom": "20px"}),
+                            html.H5(" Interactive Search", style={"color": COLORS["text_primary"], "marginBottom": "20px"}),
                             dbc.Input(
                                 id="search-key-input",
                                 type="number",
@@ -451,7 +451,7 @@ app.layout = dbc.Container(
                                 [
                                     dbc.Col(
                                         dbc.Button(
-                                            "🔎 Search Both",
+                                            " Search Both",
                                             id="search-both-btn",
                                             color="primary",
                                             size="sm",
@@ -461,7 +461,7 @@ app.layout = dbc.Container(
                                     ),
                                     dbc.Col(
                                         dbc.Button(
-                                            "🎲 Random Key",
+                                            " Random Key",
                                             id="random-key-btn",
                                             color="secondary",
                                             size="sm",
@@ -509,14 +509,14 @@ app.layout = dbc.Container(
                                 ],
                             ),
                             dbc.Button(
-                                "🚀 Run Benchmark",
+                                " Run Benchmark",
                                 id="run-benchmark-btn",
                                 color="success",
                                 size="lg",
                                 style={"width": "100%", "marginBottom": "12px"}
                             ),
                             dbc.Button(
-                                "📊 Generate Report",
+                                " Generate Report",
                                 id="generate-report-btn",
                                 color="info",
                                 size="sm",
@@ -541,7 +541,7 @@ app.layout = dbc.Container(
             children=[
                 # Performance Tab
                 dcc.Tab(
-                    label="📈 Performance Metrics",
+                    label=" Performance Metrics",
                     value="performance",
                     children=dbc.Container(
                         [
@@ -560,7 +560,7 @@ app.layout = dbc.Container(
                 
                 # Dataset Tab
                 dcc.Tab(
-                    label="📊 Dataset Explorer",
+                    label=" Dataset Explorer",
                     value="dataset",
                     children=dbc.Container(
                         [
@@ -587,7 +587,7 @@ app.layout = dbc.Container(
                 
                 # Prediction Tab
                 dcc.Tab(
-                    label="🎯 Prediction Quality",
+                    label=" Prediction Quality",
                     value="prediction",
                     children=dbc.Container(
                         [
