@@ -221,7 +221,7 @@ class BenchmarkEngine:
         for key in keys:
             start = time.perf_counter()
             pos = self.rmi.predict(key)
-            elapsed = (time.perf_counter() - start) * 1000  # ms
+            elapsed = (time.perf_counter() - start) * 1000  # μs
             
             results["rmi"]["times"].append(elapsed)
             
@@ -238,7 +238,7 @@ class BenchmarkEngine:
         for key in keys:
             start = time.perf_counter()
             pos = self.bpt.search(key)
-            elapsed = (time.perf_counter() - start) * 1000  # ms
+            elapsed = (time.perf_counter() - start) * 1000  # μs
             
             results["bpt"]["times"].append(elapsed)
             
@@ -737,14 +737,14 @@ def display_search_results(results_data):
                     html.Div("Hybrid Learned Index", style={"color": COLORS["text_primary"], "fontWeight": "600", "marginBottom": "8px"}),
                     html.Div(f"Position: {rmi_result['position']:,}" if rmi_result['found'] else "Not Found",
                             style={"color": COLORS["accent_primary"], "fontSize": "16px", "marginBottom": "4px"}),
-                    html.Div(f"Time: {rmi_result['time_ms']:.4f} ms",
+                    html.Div(f"Time: {rmi_result['time_ms']:.4f} μs",
                             style={"color": COLORS["text_secondary"], "fontSize": "12px"}),
                 ], width=6),
                 dbc.Col([
                     html.Div("B+ Tree", style={"color": COLORS["text_primary"], "fontWeight": "600", "marginBottom": "8px"}),
                     html.Div(f"Position: {bpt_result['position']:,}" if bpt_result['found'] else "Not Found",
                             style={"color": COLORS["accent_secondary"], "fontSize": "16px", "marginBottom": "4px"}),
-                    html.Div(f"Time: {bpt_result['time_ms']:.4f} ms",
+                    html.Div(f"Time: {bpt_result['time_ms']:.4f} μs",
                             style={"color": COLORS["text_secondary"], "fontSize": "12px"}),
                 ], width=6),
             ])
@@ -807,8 +807,8 @@ def run_benchmark(n_clicks, benchmark_size):
                     dbc.Col(
                         html.Div([
                             html.P("RMI", style={"color": COLORS["text_primary"], "fontWeight": "600"}),
-                            html.P(f"Avg: {rmi_metrics['avg']:.4f} ms"),
-                            html.P(f"P99: {rmi_metrics['p99']:.4f} ms"),
+                            html.P(f"Avg: {rmi_metrics['avg']:.4f} μs"),
+                            html.P(f"P99: {rmi_metrics['p99']:.4f} μs"),
                             html.P(f"QPS: {rmi_metrics['throughput_qps']:,.0f}"),
                         ], style={"fontSize": "12px"}),
                         width=6
@@ -816,8 +816,8 @@ def run_benchmark(n_clicks, benchmark_size):
                     dbc.Col(
                         html.Div([
                             html.P("B+ Tree", style={"color": COLORS["text_primary"], "fontWeight": "600"}),
-                            html.P(f"Avg: {bpt_metrics['avg']:.4f} ms"),
-                            html.P(f"P99: {bpt_metrics['p99']:.4f} ms"),
+                            html.P(f"Avg: {bpt_metrics['avg']:.4f} μs"),
+                            html.P(f"P99: {bpt_metrics['p99']:.4f} μs"),
                             html.P(f"QPS: {bpt_metrics['throughput_qps']:,.0f}"),
                         ], style={"fontSize": "12px"}),
                         width=6
@@ -853,7 +853,7 @@ def update_latency_chart(data):
             name="RMI",
             fill="tozeroy",
             line=dict(color=COLORS["accent_primary"]),
-            hovertemplate="<b>RMI</b><br>Time: %{y:.4f} ms<extra></extra>"
+            hovertemplate="<b>RMI</b><br>Time: %{y:.4f} μs<extra></extra>"
         ))
         
         fig.add_trace(go.Scatter(
@@ -861,7 +861,7 @@ def update_latency_chart(data):
             name="B+ Tree",
             fill="tozeroy",
             line=dict(color=COLORS["accent_secondary"]),
-            hovertemplate="<b>B+ Tree</b><br>Time: %{y:.4f} ms<extra></extra>"
+            hovertemplate="<b>B+ Tree</b><br>Time: %{y:.4f} μs<extra></extra>"
         ))
     
     fig.update_layout(
@@ -952,7 +952,7 @@ def update_latency_distribution(data):
     
     fig.update_layout(
         title="Latency Distribution",
-        xaxis_title="Lookup Time (ms)",
+        xaxis_title="Lookup Time (μs)",
         yaxis_title="Frequency",
         barmode="overlay",
         template="plotly_dark",
@@ -983,7 +983,7 @@ def update_percentile_chart(data):
             y=rmi_percentiles,
             name="RMI",
             marker_color=COLORS["accent_primary"],
-            hovertemplate="<b>RMI</b><br>Percentile: %{x}<br>Time: %{y:.4f} ms<extra></extra>"
+            hovertemplate="<b>RMI</b><br>Percentile: %{x}<br>Time: %{y:.4f} μs<extra></extra>"
         ))
         
         fig.add_trace(go.Bar(
@@ -991,12 +991,12 @@ def update_percentile_chart(data):
             y=bpt_percentiles,
             name="B+ Tree",
             marker_color=COLORS["accent_secondary"],
-            hovertemplate="<b>B+ Tree</b><br>Percentile: %{x}<br>Time: %{y:.4f} ms<extra></extra>"
+            hovertemplate="<b>B+ Tree</b><br>Percentile: %{x}<br>Time: %{y:.4f} μs<extra></extra>"
         ))
     
     fig.update_layout(
         title="Latency Percentiles",
-        yaxis_title="Lookup Time (ms)",
+        yaxis_title="Lookup Time (μs)",
         barmode="group",
         template="plotly_dark",
         paper_bgcolor=COLORS["bg_tertiary"],
@@ -1325,7 +1325,7 @@ def update_scaling_curve(tab_value):
         name="RMI",
         line=dict(color=COLORS["accent_primary"], width=2),
         marker=dict(size=6),
-        hovertemplate="<b>RMI</b><br>Dataset Size: %{x:,.0f}<br>Time: %{y:.6f}ms<extra></extra>"
+        hovertemplate="<b>RMI</b><br>Dataset Size: %{x:,.0f}<br>Time: %{y:.6f}μs<extra></extra>"
     ))
     
     fig.add_trace(go.Scatter(
@@ -1335,7 +1335,7 @@ def update_scaling_curve(tab_value):
         name="B+ Tree",
         line=dict(color=COLORS["accent_secondary"], width=2),
         marker=dict(size=6),
-        hovertemplate="<b>B+ Tree</b><br>Dataset Size: %{x:,.0f}<br>Time: %{y:.6f}ms<extra></extra>"
+        hovertemplate="<b>B+ Tree</b><br>Dataset Size: %{x:,.0f}<br>Time: %{y:.6f}μs<extra></extra>"
     ))
     
     fig.update_xaxes(type="log")
@@ -1344,7 +1344,7 @@ def update_scaling_curve(tab_value):
     fig.update_layout(
         title="Lookup Time Scaling with Dataset Size",
         xaxis_title="Dataset Size (log scale)",
-        yaxis_title="Lookup Time (ms, log scale)",
+        yaxis_title="Lookup Time (μs, log scale)",
         template="plotly_dark",
         paper_bgcolor=COLORS["bg_tertiary"],
         plot_bgcolor=COLORS["bg_secondary"],
@@ -1447,7 +1447,7 @@ def update_comparison_box(data):
     
     fig.update_layout(
         title="Latency Distribution Comparison",
-        yaxis_title="Lookup Time (ms)",
+        yaxis_title="Lookup Time (μs)",
         template="plotly_dark",
         paper_bgcolor=COLORS["bg_tertiary"],
         plot_bgcolor=COLORS["bg_secondary"],
@@ -1468,12 +1468,12 @@ def update_comparison_table(data):
         return go.Figure()
     
     metrics = [
-        "Avg Latency (ms)",
-        "P95 Latency (ms)",
-        "P99 Latency (ms)",
+        "Avg Latency (μs)",
+        "P95 Latency (μs)",
+        "P99 Latency (μs)",
         "Throughput (QPS)",
         "Accuracy (%)",
-        "Std Dev (ms)",
+        "Std Dev (μs)",
     ]
     
     rmi_values = [
